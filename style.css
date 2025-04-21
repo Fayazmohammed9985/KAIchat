@@ -1,0 +1,128 @@
+:root {
+    --text-color: #1e1e1e;
+  }
+body {
+    font-family: 'Literata', serif;
+    background-color: #f9f9f9;
+    color: #1e1e1e;
+  }
+  h1, h2, h3 {
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+  }
+  
+  button, label, .chat-input {
+    font-family: 'Inter', sans-serif; 
+    font-weight: 500;
+  }
+  
+  .chat-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    z-index: 9999;
+    display: flex;
+    justify-content: center; 
+  }
+  
+  .brand-logo {
+    height: 80px; 
+    width: auto; 
+  }
+  .typing-animation{
+    display: inline-flex;
+  }
+  .typing-animation .typing-dot{
+    height: 8px;
+    width:8px;
+    opacity: 0.8;
+    margin:0 3px;
+    border-radius: 50%;
+    background: var(--text-color);
+    animation:animateDots 1.5s  ease-in-out infinite;
+    animation-delay: var(--delay);
+
+  }
+  @keyframes animateDots {
+    0%,44%{
+        transform: translate(0px);
+    }
+    22%{
+        transform: translateY(-6px);
+    }
+    44%{
+        opacity: 0.3;
+    }
+  }
+  .typing-container{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    display: flex;
+    box-shadow: 0 -2px 10px rgba(223, 217, 226, 0.05);
+
+  }
+  
+.typing-content {
+    width: 100%;
+  }
+  .typing-textarea{
+    position: relative;
+    width:100%;
+  }
+  .typing-textarea textarea{
+    width:100%;
+    padding: 12px 45px 12px 12px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin:0 5% 0 5%;
+    outline:1px solid transparent;
+    display: flex;
+    align-items: center;
+ 
+
+  }
+  .typing-textarea textarea:valid ~button{
+    visibility: visible;;
+  }
+  .send-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--text-color);
+    visibility: hidden;
+  }
+  .container{
+    margin-top:50px;
+  }
+
+  .chat {
+    display: flex;
+    margin: 10px 5%;
+  }
+  
+  .chat.outgoing {
+    justify-content: flex-end;
+
+  }
+  
+  .chat.incoming {
+    justify-content: flex-start;
+    background-color: #cccccc33;
+
+
+  }
+  .container {
+    height: 700px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+
+  }
+  
