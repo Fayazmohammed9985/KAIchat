@@ -8,11 +8,7 @@ body {
   color: var(--text-color);
 }
 
-h1, h2, h3 {
-  font-family: 'Crimson Pro', serif;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
+
 
 button, label, .chat-input {
   font-family: 'Inter', sans-serif; 
@@ -123,10 +119,12 @@ button, label, .chat-input {
 
 .chat.outgoing {
   justify-content: flex-end;
-  margin-left: 2%;
+  margin-right: 2%;
 }
 
 .chat.incoming {
+    margin-right: 2%;
+
   justify-content: flex-start;
 }
 
@@ -167,7 +165,6 @@ body.dark-theme {
 }
 
 body.dark-theme .chat-content {
-  background-color: #1f1f1f;
   color: #f1f1f1;
 }
 
@@ -177,3 +174,4 @@ body.dark-theme .typing-textarea textarea {
   border: 1px solid #444;
   transition: background-color 0.3s, color 0.3s;
 }
+
