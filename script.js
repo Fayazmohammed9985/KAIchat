@@ -15,12 +15,13 @@ const createElement=(html,className)=>{
 // loadDataFromLocal();
 const handleOutgoingtext=()=>{
     input=chatInput.value.trim();
-const html=`<div class="chat-content">
-        <div class="chat-details">
-          <img src="images/you.png" alt="you" height="50px" width="50px" class="mb-2">
-          <p style="padding-top:10px">${input}</p>
-        </div>
-      </div>`
+const html=`<div class="chat-content you-chat my-3">
+  <div class="chat-details">
+    <img src="images/you.png" alt="you" height="50px" width="50px" class="mb-2">
+    <p style="padding-top:10px">${input}</p>
+  </div>
+</div>
+`
       const outgoing=createElement(html,"outgoing")
       chatcontainer.appendChild(outgoing)
       chatcontainer.scrollTop = chatcontainer.scrollHeight;
@@ -147,3 +148,44 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
+
+
+
+const micBtn = document.getElementById("mic-btn");
+
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  micBtn.addEventListener("click", () => {
+    recognition.start();
+  });
+
+  recognition.onresult = (event) => {
+    const speechToText = event.results[0][0].transcript;
+    chatInput.value = speechToText;
+    handleOutgoingtext();  // auto-send the message
+  };
+
+  recognition.onerror = (event) => {
+    alert("Speech recognition error: " + event.error);
+  };
+} else {
+  micBtn.style.display = "none"; // Hide mic if not supported
+}
+
+
+const speakBtn = document.getElementById("speak-btn");
+
+speakBtn.addEventListener("click", () => {
+  const lastResponse = document.querySelector(".incoming:last-child p");
+  if (lastResponse) {
+    const utterance = new SpeechSynthesisUtterance(lastResponse.textContent);
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
+  }
+});
+
