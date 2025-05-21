@@ -16,7 +16,7 @@ const createElement=(html,className)=>{
 const handleOutgoingtext=()=>{
     input=chatInput.value.trim();
 const html=`<div class="chat-content">
-        <div class="chat-details d-flex flex-column">
+        <div class="chat-details">
           <img src="images/you.png" alt="you" height="50px" width="50px" class="mb-2">
           <p style="padding-top:10px">${input}</p>
         </div>
@@ -41,7 +41,7 @@ const copysymbol=(copyBtn)=>{
 
 const showTypingDots=()=>{
   const dots= `<div class="chat-content">
-        <div class="chat-details d-flex flex-column">
+        <div class="chat-details">
           <img src="images/kai.png" alt="kai" height="50px" width="50px" class="mb-2">
           <div class="typing-animation">
             <div class="typing-dot" style="--delay:0.2s"></div>
@@ -90,8 +90,9 @@ const showTypingDots=()=>{
   }
   incomingDots.querySelector(".typing-animation").remove();
   incomingDots.querySelector(".chat-details").appendChild(resElement)
+setTimeout(() => {
   chatcontainer.scrollTop = chatcontainer.scrollHeight;
-
+}, 100);
   // localStorage.setItem("all-chats",chatcontainer.innerHTML);
 
   const copyBtn = document.createElement("i");
@@ -110,4 +111,39 @@ chatInput.addEventListener("keydown", (e) => {
     handleOutgoingtext();
   }
 });
+const themeButton = document.getElementById("theme-button");
+const darkTheme = "dark-theme";
+const sunIconClass = "uil-sun";
+const moonIconClass = "uil-moon";
 
+const selectedTheme = localStorage.getItem("selected-theme");
+const selectedIcon = localStorage.getItem("selected-icon");
+
+const getCurrentTheme = () =>
+  document.body.classList.contains(darkTheme) ? "dark" : "light";
+
+const getCurrentIcon = () =>
+  themeButton.classList.contains(sunIconClass) ? "uil-sun" : "uil-moon";
+
+if (selectedTheme) {
+  document.body.classList[selectedTheme === "dark" ? "add" : "remove"](darkTheme);
+
+  themeButton.classList.remove(sunIconClass, moonIconClass);
+  themeButton.classList.add(selectedIcon);
+}
+
+themeButton.addEventListener("click", () => {
+  document.body.classList.toggle(darkTheme);
+
+  if (themeButton.classList.contains(moonIconClass)) {
+    themeButton.classList.remove(moonIconClass);
+    themeButton.classList.add(sunIconClass);
+  } else {
+    themeButton.classList.remove(sunIconClass);
+    themeButton.classList.add(moonIconClass);
+  }
+
+  // Save the current theme and icon to localStorage
+  localStorage.setItem("selected-theme", getCurrentTheme());
+  localStorage.setItem("selected-icon", getCurrentIcon());
+});
